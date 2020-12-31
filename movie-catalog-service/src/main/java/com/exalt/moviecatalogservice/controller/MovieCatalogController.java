@@ -1,5 +1,6 @@
 package com.exalt.moviecatalogservice.controller;
 
+import com.exalt.moviecatalogservice.client.MovieCatalogClient;
 import com.exalt.moviecatalogservice.model.CatalogItem;
 import com.exalt.moviecatalogservice.model.Movie;
 import com.exalt.moviecatalogservice.model.Rating;
@@ -20,7 +21,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/catalog")
 public class MovieCatalogController {
 
     @Autowired
@@ -37,6 +37,10 @@ public class MovieCatalogController {
 
     @Autowired
     private UserRatingInfo userRatingInfo;
+
+//    @Autowired
+//    private MovieCatalogClient movieCatalogClient;
+
     @RequestMapping("/{userId}")
     public List<CatalogItem> getCatalog(@PathVariable("userId") String userId) {
 
