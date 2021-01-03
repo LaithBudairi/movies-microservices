@@ -1,11 +1,14 @@
 package com.exalt.moviecatalogservice;
 
+import com.exalt.moviecatalogservice.client.MovieCatalogClient;
+import com.exalt.moviecatalogservice.config.RibbonConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
+import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -17,6 +20,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @EnableCircuitBreaker
 @EnableHystrixDashboard
 @EnableFeignClients
+@RibbonClient(name = "movie-catalog-service", configuration = RibbonConfiguration.class)
 public class MovieCatalogServiceApplication {
 
     @Bean

@@ -32,6 +32,7 @@ public class PostFilter extends ZuulFilter {
     public Object run() {
         HttpServletResponse response = RequestContext.getCurrentContext().getResponse();
 
+        log.info(response.getHeaderNames().toString());
         log.info("PostFilter: " + String.format("response's content type is %s", response.getStatus()));
 
         return null;

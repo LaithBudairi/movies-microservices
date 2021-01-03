@@ -23,6 +23,5 @@ public class RatingsDataController {
         UserRating userRating = new UserRating();
         userRating.initData(userId);
         return userRating;
-
     }
 }
