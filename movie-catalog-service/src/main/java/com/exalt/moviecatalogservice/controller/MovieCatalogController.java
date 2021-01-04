@@ -46,10 +46,7 @@ public class MovieCatalogController {
     @RequestMapping("/{userId}")
     public List<CatalogItem> getCatalog(@PathVariable("userId") String userId) {
 
-        log.info("Inside getCatalog method");
-        log.debug("Inside getCatalog method");
-        log.warn("Inside getCatalog method");
-        log.error("Inside getCatalog method");
+        log.info("Getting Catalogs");
 
         UserRating userRating = movieCatalogClient.getUserRating(userId);
 
@@ -59,10 +56,6 @@ public class MovieCatalogController {
     }
 
 }
-
-
-
-
 
 
 
