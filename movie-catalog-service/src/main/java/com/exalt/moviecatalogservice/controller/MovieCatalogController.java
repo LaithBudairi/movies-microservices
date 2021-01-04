@@ -8,6 +8,8 @@ import com.exalt.moviecatalogservice.model.UserRating;
 import com.exalt.moviecatalogservice.service.MovieInfo;
 import com.exalt.moviecatalogservice.service.UserRatingInfo;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 @RestController
 public class MovieCatalogController {
 
+    Logger log = LoggerFactory.getLogger(MovieCatalogController.class);
     @Autowired
     RestTemplate restTemplate;
 
@@ -43,12 +46,15 @@ public class MovieCatalogController {
     @RequestMapping("/{userId}")
     public List<CatalogItem> getCatalog(@PathVariable("userId") String userId) {
 
+        log.info("Inside getCatalog method");
+        log.debug("Inside getCatalog method");
+        log.warn("Inside getCatalog method");
+        log.error("Inside getCatalog method");
+
         UserRating userRating = movieCatalogClient.getUserRating(userId);
 
         return userRating.getRatings().stream()
-                .map(rating -> {
-                    return movieInfo.getCatalogItem(rating);
-                })
+                .map(rating -> movieInfo.getCatalogItem(rating))
                 .collect(Collectors.toList());
     }
 
