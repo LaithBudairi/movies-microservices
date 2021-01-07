@@ -1,0 +1,69 @@
+version: '3'
+
+#Define Services
+services:
+
+  #Eureka server
+      discovery-server:
+        build: ./discovery-server
+        container_name: eureka
+
+        ports:
+          - "8761:8761"
+
+
+  #gateway
+      gateway-service:
+        build: ./gateway-service
+        container_name: gateway
+
+        ports:
+          - "8084:8084"
+
+        depends_on:
+          - discovery-server
+          - movie-catalog-service
+        links:
+          - discovery-server
+
+
+  #ratings
+      ratings-data-service:
+        build: ./ratings-data-service
+        container_name: discovery-server
+
+        ports:
+          - "8083:8083"
+
+        depends_on:
+          - discovery-server
+        links:
+          - discovery-server
+
+
+  #movie info
+      movie-info-service:
+
+          build: ./movie-info-service
+          container_name: movie-info
+
+          ports:
+            - "8082:8082"
+          depends_on:
+            - discovery-server
+          links:
+            - discovery-server
+
+  #movie catalog
+      movie-catalog-service:
+        build: ./movie-catalog-service
+        container_name: movie-catalog
+
+        ports:
+          - "8081:8081"
+        depends_on:
+          - discovery-server
+          - movie-info-service
+          - ratings-data-service
+        links:
+          - discovery-server
